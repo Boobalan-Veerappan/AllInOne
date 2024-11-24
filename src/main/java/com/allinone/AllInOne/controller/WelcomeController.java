@@ -9,6 +9,8 @@ import com.allinone.AllInOne.Respository.UserDetilsRepo;
 import com.allinone.AllInOne.mapping.AllInOneMapping;
 import com.allinone.AllInOne.service.AllInOneService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,7 @@ public class WelcomeController {
 
     @NonNull AllInOneService allinOneService;
 
+    Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 
     @GetMapping("/world")
     public String getResponse(){
@@ -42,11 +45,14 @@ public class WelcomeController {
 
     @PostMapping("/save")
     public Book saveRequest(@RequestBody Book book){
-       return bookrespo.save(book);
+
+        logger.info("Saving Data ",book);
+        return bookrespo.save(book);
     }
 
     @GetMapping("/books")
     public List<Book> getBook(){
+        logger.info(" get All Data ");
         return bookrespo.findAll();
     }
 
